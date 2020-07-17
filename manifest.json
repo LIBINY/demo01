@@ -1,0 +1,14 @@
+{
+    "name":"测试长名字",
+    "short_name":"测试短名字",
+    "start_url":".",
+    "background_color": "pink",
+    "display":"standalone",
+    "icons":[
+        {
+            "src":"./avatar2.jpeg",
+            "sizes":"144x144",
+            "type": "image/png"
+        }
+    ]
+}
