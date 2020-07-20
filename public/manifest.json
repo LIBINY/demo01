@@ -6,9 +6,9 @@
     "display":"standalone",
     "icons":[
         {
-            "src":"./avatar2.jpeg",
+            "src":"./image/logo.jpeg",
             "sizes":"144x144",
-            "type": "image/png"
+            "type": "image/jpeg"
         }
     ]
 }
