@@ -3,7 +3,8 @@ const CACHE_NAME='v1'
 //需要缓存的URL
 const URLS = [
     '/',
-    
+    'index.js',
+    './image/logo.jpeg'
 ]
 self.addEventListener('install', e => {
   console.log('install' + e)

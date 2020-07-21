@@ -18,19 +18,25 @@
 //       document.querySelector('.app_content').innerHTML = html
 //     })
 //   }
+const BASE_URL = 'http://192.168.13.140:8080'
+
 async function testApi (){
-    const res = await fetch('/api/test')
-    console.log(res)
+    const res = await fetch(BASE_URL+'/api/test')
+    const data = await res.json()
+    console.log(data)
+    document.querySelector('.test-text').innerHTML = data
 }
 
 function registerSw(){
     window.addEventListener('load',async e=>{
         if('serviceWorker' in navigator){
-            const res = await navigator.serviceWorker.register('./sw.js')
-            console.log(res)
+            await navigator.serviceWorker.register('./sw.js')
+            // const data = await res.json()
+            // console.log(data)
         }
     })
 }
 //   renderMovie()
+//注册serviceWorker
 registerSw()
 testApi()
