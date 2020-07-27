@@ -39,44 +39,68 @@ self.addEventListener('activate', async e => {
     // e.waitUntil(self.clients.claim())
 })
 
-self.addEventListener('fetch', e => {
-    console.log('fetch' + e.request.url)
-    //   if(e.request.url==="http://192.168.13.140:8080/api/test"){
-    //     e.respondWith(
-    //         fetch(e.request.url).then(resp=>{
-    //             return resp
-    //         }).catch(err=>{
-    //             caches.match(e.request).then(response => {
-    //                   return response
-    //             }).catch(err1=>{
-    //                 console.log(err1)
-    //             })
-    //         })
-    //       )
-    //   }else{
-    e.respondWith(
-        caches.match(e.request).then(response => {
-            if (response != null) {
-                return response
-            }
-            return fetch(e.request.url)
-        })
-    )
-    //   }
-    //   try {
-    //     const fetchList = await fetch(e.request)
-    //     console.log('fetchList',fetchList)
-    //     // e.respondWidth(fetchList)
-    //   } catch (error) {
-    //      const cached = await caches.open(CACHE_NAME)
-    //     // const resData = await cached.match(e.request)
-    //     e.respondWith(
-    //         cached.match(e.request).then(function (response) {
-    //             return response || fetch(e.request);
-    //         })
-    //     )
-    //   }
+// self.addEventListener('fetch', e => {
+//     console.log('fetch' + e.request.url)
+//     //   if(e.request.url==="http://192.168.13.140:8080/api/test"){
+//     //     e.respondWith(
+//     //         fetch(e.request.url).then(resp=>{
+//     //             return resp
+//     //         }).catch(err=>{
+//     //             caches.match(e.request).then(response => {
+//     //                   return response
+//     //             }).catch(err1=>{
+//     //                 console.log(err1)
+//     //             })
+//     //         })
+//     //       )
+//     //   }else{
+//     e.respondWith(
+//         caches.match(e.request).then(response => {
+//             if (response != null) {
+//                 return response
+//             }
+//             return fetch(e.request.url)
+//         })
+//     )
+//     //   }
+//     //   try {
+//     //     const fetchList = await fetch(e.request)
+//     //     console.log('fetchList',fetchList)
+//     //     // e.respondWidth(fetchList)
+//     //   } catch (error) {
+//     //      const cached = await caches.open(CACHE_NAME)
+//     //     // const resData = await cached.match(e.request)
+//     //     e.respondWith(
+//     //         cached.match(e.request).then(function (response) {
+//     //             return response || fetch(e.request);
+//     //         })
+//     //     )
+//     //   }
+// })
+
+//在请求发送的时候触发
+self.addEventListener('fetch', async event => {
+    console.log('fetch', event)
+    //请求对象
+    const req = event.request
+    //给浏览器响应
+    event.respondWith(networkFirst(req))
 })
+
+// 网络优先
+async function networkFirst(req) {
+    try {
+        //先从网络读取最新的内容
+        const fresh = await fetch(req)
+        return fresh
+    } catch (error) {
+        //从缓存中读取
+        const cache = await caches.open(CACHE_NAME)
+        const cached = await cache.match(req)
+        return cached
+    }
+
+}
 
 self.addEventListener('push', function (e) {
     let data = e.data
