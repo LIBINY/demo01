@@ -1,5 +1,5 @@
 //缓存的名称
-const CACHE_NAME='v1'
+const CACHE_NAME='v2'
 //需要缓存的URL（注册成功后要立即缓存的资源列表）
 const URLS = [
     './',
