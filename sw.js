@@ -5,10 +5,8 @@ const URLS = [
     './',
     './index.html',
     './manifest.json',
-    'index.js',
-    './image/logo.jpeg',
-    './image/logo1.png',
-    './image/logo3.jpg'
+    './index.js',
+    './image/logo.png'
 ]
 //     'http://192.168.13.140:8080/api/test'
 // 当浏览器解析完sw文件时触发install事件

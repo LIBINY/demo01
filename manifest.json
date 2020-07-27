@@ -1,29 +1,34 @@
 {
-    "name":"测试长名字",
-    "short_name":"测试短名字",
+    "name":"点触科技",
+    "short_name":"点触",
     "start_url":".",
-    "background_color": "pink",
+    "background_color": "blue",
     "theme_color": "yellow",
     "display":"standalone",
     "icons":[
         {
-            "src":"./image/logo.jpeg",
+            "src":"./image/logo.png",
             "sizes":"512x512",
             "type": "image/png"
         },
         {
-            "src":"./image/logo.jpeg",
+            "src":"./image/logo.png",
             "sizes":"192x192",
             "type": "image/png"
         },
         {
-            "src":"./image/logo.jpeg",
+            "src":"./image/logo.png",
             "sizes":"144x144",
             "type": "image/png"
         },
         {
-            "src":"./image/logo.jpeg",
+            "src":"./image/logo.png",
             "sizes":"128x128",
+            "type": "image/png"
+        },
+        {
+            "src":"./image/logo.png",
+            "sizes":"57x57",
             "type": "image/png"
         }
     ]
