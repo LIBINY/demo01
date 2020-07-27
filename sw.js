@@ -1,12 +1,13 @@
 //缓存的名称
-const CACHE_NAME='v2'
+const CACHE_NAME='v3'
 //需要缓存的URL（注册成功后要立即缓存的资源列表）
 const URLS = [
     './',
     './index.html',
     './manifest.json',
     './index.js',
-    './image/logo.png'
+    './image/logo.png',
+    './image/logo2.png'
 ]
 //     'http://192.168.13.140:8080/api/test'
 // 当浏览器解析完sw文件时触发install事件
