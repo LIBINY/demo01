@@ -3,12 +3,23 @@
     "short_name":"测试短名字",
     "start_url":".",
     "background_color": "pink",
+    "theme_color": "yellow",
     "display":"standalone",
     "icons":[
         {
             "src":"./image/logo.jpeg",
+            "sizes":"192x192",
+            "type": "image/png"
+        },
+        {
+            "src":"./image/logo.jpeg",
             "sizes":"144x144",
-            "type": "image/jpeg"
+            "type": "image/png"
+        },
+        {
+            "src":"./image/logo.jpeg",
+            "sizes":"128x128",
+            "type": "image/png"
         }
     ]
 }
