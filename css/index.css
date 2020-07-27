@@ -1,3 +1,7 @@
-.color-item{
+.color-item {
     display: inline-block;
+}
+
+body {
+    background-color: palevioletred;
 }
