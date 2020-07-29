@@ -1,4 +1,4 @@
-const BASE_URL = 'http://192.168.13.140:8080'
+const BASE_URL = 'http://localhost:8080'
 async function renderMovie() {
     const res = await fetch(BASE_URL + '/api/test')
     const json = await res.json()
@@ -57,12 +57,51 @@ async function testApi() {
 }
 
 function registerSw() {
+    // 先检查浏览器是否支持
+    // if (!("Notification" in window)) {
+    //     alert("This browser does not support desktop notification")
+    //     }else{
+    //     alert("notification")
+    // }
     window.addEventListener('load', async e => {
         if ('serviceWorker' in navigator) {
             //消息通知
             // await askPermission()
             const reps = await navigator.serviceWorker.register('./sw.js')
-            // reps.showNotification('我发的消息你看到了吗？')
+            // reps.showNotification('提示',{body: '欢迎'})
+            //消息提醒
+            document.querySelector('#notification-btn').addEventListener('click', ()=> {
+                const  title = '通知的title'
+                const  options = {
+                    body: '通知的body',//提醒内容
+                    icon: './image/logo2.png',//提醒图标
+                    actions: [{
+                        action: 'refresh',
+                        title: '刷新'
+                    }, {
+                        action: 'go_baidu',
+                        title: '去百度'
+                    }],//自定义操作
+                    tag: 'pwa-starter',//相当于是ID，通过该ID标识可以操作特定的notification
+                    renotify: true//是否允许重复提醒，默认为false。当不允许重复提醒时，同一个tag的notification只会显示一次
+                }
+                reps.showNotification(title, options)
+            })
+            navigator.serviceWorker.addEventListener('message',(e)=> {
+                let action = e.data
+                console.log(`receive post-message from sw, action is '${e.data}'`);
+                switch (action) {
+                    case 'refresh':
+                        testApi()
+                        break
+                    case 'go_baidu':
+                        location.href = 'https://www.baidu.com'
+                        break
+                    default:
+                        console.log('点击了通知')
+                        break
+                }
+            })
             // const data = await res.json()
             // console.log(data)
         }
@@ -89,7 +128,8 @@ function registerSw() {
         })
     })
 }
+
 //   renderMovie()
 //注册serviceWorker
 registerSw()
-// testApi()
+testApi()

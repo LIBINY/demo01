@@ -1,3 +1,5 @@
+import { promises } from "fs";
+
 //缓存的名称
 const CACHE_NAME = 'v2'
 //需要缓存的URL（注册成功后要立即缓存的资源列表）
@@ -112,4 +114,50 @@ self.addEventListener('push', function (e) {
         self.registration.showNotification('测试通知')
         console.log('push没有任何数据')
     }
+})
+
+self.addEventListener('notificationclick',  async (e)=> {
+    let action = e.action
+    //获取所有的clients
+    const clientList = await self.clients.matchAll()
+    // 判断是否存在client
+    if (!clientList || clientList.length === 0) {
+        return
+    }
+    clients.forEach(async (client)=> {
+        // 使用postMessage进行通信
+        await client.postMessage(action)
+    })
+    // Promise.all(
+    //     clients.forEach((client)=> {
+    //         // 使用postMessage进行通信
+    //         client.postMessage(action)
+    //     })
+    // )
+    // e.waitUntil(
+    //     // 获取所有clients
+    //     self.clients.matchAll().then(function (clients) {
+    //         if (!clients || clients.length === 0) {
+    //             return
+    //         }
+    //         clients.forEach(function (client) {
+    //             // 使用postMessage进行通信
+    //             client.postMessage(action)
+    //         })
+    //     })
+    // )
+    // console.log(`action tag: ${e.notification.tag}`, `action: ${action}`)
+    // switch (action) {
+    //     case 'refresh':
+    //         console.log('refresh')
+    //         break
+    //     case 'go_baidu':
+    //         console.log('go_baidu')
+    //         break
+    //     default://点击本身也会触发，需要处理
+    //         console.log(`未处理的action: ${e.action}`)
+    //         action = 'default'
+    //         break
+    // }
+    // e.notification.close()
 })
