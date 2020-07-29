@@ -89,7 +89,6 @@ function registerSw() {
             })
             navigator.serviceWorker.addEventListener('message',(e)=> {
                 let action = e.data
-                console.log(`receive post-message from sw, action is '${e.data}'`);
                 switch (action) {
                     case 'refresh':
                         testApi()
